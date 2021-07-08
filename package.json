@@ -1,0 +1,25 @@
+{
+  "name": "yr-now-webthing",
+  "version": "1.0.0",
+  "description": "live weatherdata webthing using yr nowcast",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjrk/yr-now-webthing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bjrk/yr-now-webthing/issues"
+  },
+  "homepage": "https://github.com/bjrk/yr-now-webthing#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "uuid": "^8.3.2",
+    "webthing": "^0.15.0"
+  }
+}
