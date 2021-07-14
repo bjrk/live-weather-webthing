@@ -71,7 +71,6 @@ class YRNowcastSensor extends Thing {
     const latestIndex = observation.timeseries.indexOf(latest);
     const willRain = observation.timeseries
       .slice(latestIndex, latestIndex + 3)
-      .map((e) => console.log(e) || e)
       .some(
         (seriesEntry) => seriesEntry.data.instant.details.precipitation_rate > 0
       );
@@ -109,7 +108,7 @@ function runServer() {
   }
   const weatherSensor = new YRNowcastSensor(lon, lat);
 
-  const server = new WebThingServer(new SingleThing(weatherSensor), 8888);
+  const server = new WebThingServer(new SingleThing(weatherSensor), 14088);
 
   process.on("SIGINT", () => {
     server
