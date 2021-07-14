@@ -12,9 +12,9 @@ class YRNowcastSensor extends Thing {
   constructor(lon, lat) {
     super(
       uuidv4(),
-      "YR Nowcast Weather",
+      "Live weather",
       ["TemperatureSensor"],
-      "A web connected YR Nowcast Weather sensor"
+      "A web connected live Weather sensor"
     );
     this.lon = parseFloat(lon);
     this.lat = parseFloat(lat);
@@ -44,7 +44,7 @@ class YRNowcastSensor extends Thing {
         "@type": "BooleanProperty",
         title: "Will rain",
         type: "boolean",
-        description: "will it start to rain within the next hour",
+        description: "will it rain within the next 15 minutes",
         readOnly: true,
       })
     );
