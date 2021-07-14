@@ -1,6 +1,4 @@
 const {
-  Action,
-  Event,
   SingleThing,
   Property,
   Thing,
@@ -62,18 +60,24 @@ class YRNowcastSensor extends Thing {
     }
 
     const first = observation.timeseries[0].data.instant.details;
-    const nextHour = observation.timeseries[0].data.next_1_hours.details;
-    const last =
+    const latest =
       observation.timeseries
         .slice()
         .reverse()
         .find(({ time }) => {
           return new Date(time).getTime() < Date.now();
         }) || {};
-    const current = { ...first, ...last.data.instant.details };
+    const current = { ...first, ...latest.data.instant.details };
+    const latestIndex = observation.timeseries.indexOf(latest);
+    const willRain = observation.timeseries
+      .slice(latestIndex, latestIndex + 3)
+      .map((e) => console.log(e) || e)
+      .some(
+        (seriesEntry) => seriesEntry.data.instant.details.precipitation_rate > 0
+      );
     this.temperature.notifyOfExternalUpdate(current.air_temperature);
     this.raining.notifyOfExternalUpdate(current.precipitation_rate > 0);
-    this.willRain.notifyOfExternalUpdate(nextHour.precipitation_amount > 0);
+    this.willRain.notifyOfExternalUpdate(willRain);
   }
   async getWeatherData() {
     try {
@@ -105,8 +109,6 @@ function runServer() {
   }
   const weatherSensor = new YRNowcastSensor(lon, lat);
 
-  // If adding more than one thing, use MultipleThings() with a name.
-  // In the single thing case, the thing's name will be broadcast.
   const server = new WebThingServer(new SingleThing(weatherSensor), 8888);
 
   process.on("SIGINT", () => {
@@ -120,13 +122,3 @@ function runServer() {
 }
 
 runServer();
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
-//prettier-fuck
